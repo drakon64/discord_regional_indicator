@@ -1,5 +1,7 @@
+use std::env::args;
+
 fn main() {
-    let binding = std::env::args().skip(1).next().unwrap();
+    let binding = args().skip(1).next().unwrap();
     let chars = binding.chars();
 
     let mut indicators = Vec::new();
