@@ -5,20 +5,18 @@ fn main() -> ExitCode {
     let args = args().skip(1).next();
 
     if args.is_some() {
-        let binding = args.unwrap();
-
         let mut indicators = Vec::new();
 
-        for indicator in binding.chars() {
-            if indicator.is_ascii_alphabetic() {
+        for character in args.unwrap().chars() {
+            if character.is_ascii_alphabetic() {
                 indicators.push(format!(
                     ":regional_indicator_{}: ",
-                    indicator.to_lowercase()
+                    character.to_lowercase()
                 ));
-            } else if indicator.is_numeric() {
+            } else if character.is_numeric() {
                 let number;
 
-                match indicator as u8 - '0' as u8 {
+                match character as u8 - '0' as u8 {
                     0 => number = "zero",
                     1 => number = "one",
                     2 => number = "two",
@@ -29,17 +27,17 @@ fn main() -> ExitCode {
                     7 => number = "seven",
                     8 => number = "eight",
                     9 => number = "nine",
-                    _ => panic!() // Unreachable
+                    _ => panic!(), // Unreachable
                 }
 
                 indicators.push(format!(":{number}: "));
-            } else if indicator.is_whitespace() && !indicator.eq(&'\n') {
+            } else if character.is_whitespace() && !character.eq(&'\n') {
                 indicators.push(" ".to_string());
-            } else if indicator.eq(&'\n') {
+            } else if character.eq(&'\n') {
                 indicators.push('\n'.to_string())
-            } else if indicator.eq(&'!') {
+            } else if character.eq(&'!') {
                 indicators.push(":exclamation: ".to_string());
-            } else if indicator.eq(&'?') {
+            } else if character.eq(&'?') {
                 indicators.push(":question: ".to_string());
             }
         }
