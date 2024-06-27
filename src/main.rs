@@ -1,9 +1,7 @@
 fn main() {
-    let string = "Scything isn't sorry";
-
     let mut indicators = Vec::new();
 
-    for indicator in string.chars() {
+    for indicator in "Scything isn't sorry".chars() {
         if indicator.is_ascii_alphabetic() {
             indicators.push(format!(
                 ":regional_indicator_{}: ",
