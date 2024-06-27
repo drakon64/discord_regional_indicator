@@ -1,7 +1,10 @@
 fn main() {
+    let binding = std::env::args().skip(1).next().unwrap();
+    let chars = binding.chars();
+
     let mut indicators = Vec::new();
 
-    for indicator in "Scything isn't sorry".chars() {
+    for indicator in chars {
         if indicator.is_ascii_alphabetic() {
             indicators.push(format!(
                 ":regional_indicator_{}: ",
