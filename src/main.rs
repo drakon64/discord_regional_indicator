@@ -1,9 +1,24 @@
 use std::env::args;
 
 fn main() {
+    let mut args = args().skip(1);
+
+    let characters = args.next().unwrap();
+
+    let star;
+    {
+        let star_arg = args.next();
+
+        if star_arg.is_some() && star_arg.unwrap() == "star" {
+            star = true
+        } else {
+            star = false
+        }
+    }
+
     let mut indicators = Vec::new();
 
-    for character in args().skip(1).next().unwrap().chars() {
+    for character in characters.chars() {
         if character.is_ascii_alphabetic() {
             indicators.push(format!(
                 ":regional_indicator_{}: ",
@@ -28,7 +43,11 @@ fn main() {
 
             indicators.push(format!(":{number}: "));
         } else if character.is_whitespace() && !character.eq(&'\n') {
-            indicators.push(" ".to_string());
+            if star {
+                indicators.push(":star: ".to_string());
+            } else {
+                indicators.push(" ".to_string());
+            }
         } else if character.eq(&'\n') {
             indicators.push('\n'.to_string())
         } else if character.eq(&'!') {
